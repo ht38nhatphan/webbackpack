@@ -1,38 +1,18 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="shop.aspx.cs" Inherits="websitebackpack.shop" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="shop.aspx.cs" Inherits="websitebackpack.shop" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 <script type="text/javascript">
+    function delete_click(clicked_id){
 
+    }
     //add click js
     function reply_click(clicked_id)
     {
         var name = clicked_id;
-        '<%Session["Name"] = "' + name + '"; %>';
-        
-        
-        
-        //if (window.XMLHttpRequest) {
-        //    //New browsers.
-        //    request = new XMLHttpRequest();
-        //}
-        //else if (window.ActiveXObject) {
-        //    //Old IE Browsers.
-        //    request = new ActiveXObject("Microsoft.XMLHTTP");
-        //}
-        //if (request != null) {
-        //    var url = "shop.aspx/reply_click";
-        //    request.open("POST", url, false);
-        //    var params = "{name: '" + name + "'}";
-        //    request.setRequestHeader("Content-Type", "application/json");
-        //    request.onreadystatechange = function () {
-        //        if (request.readyState == 4 && request.status == 200) {
-        //            alert(JSON.parse(request.responseText).d);
-        //        }
-        //    };
-        //    request.send(params);
-        //}
-       
+        '<%Session["Name"] = "' + name + '"; %>'; 
     }
+    //
+    
 </script>   
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -102,34 +82,44 @@
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
 
-     <!-- Header -->
+        <!-- Header -->
     <header id="header1" class="header1">
         <div class="header-content1">
             <div class="container">
                 <div class="row">
-                    <h3>Your Card</h3>
-                   
-                    <div class="col-lg-4" id="add_img" runat ="server">
-                        
-                    </div> <!-- end of col -->
-                    <div class="col-lg-3"  id="add_product" runat="server">
-                        
-                    </div> <!-- end of col -->
-                    
-                    
-                    <div class="col-lg-3">
-                        <div class="text-container">
 
-                            <div class="button-wrapper">
-                                <a class="btn-solid-reg page-scroll1" href="#request" runat ="server" onserverclick="c_click">CHECK OUT</a>
-                            </div>
+                    <div class="col-md-2">
+                        <h3>Your Card</h3>
+                    </div>
 
-                        </div> <!-- end of text-container -->
-                    </div> <!-- end of col -->
-                </div> <!-- end of row -->
-            </div> <!-- end of container -->
-        </div> <!-- end of header-content -->
-    </header> <!-- end of header -->
+                    <asp:Label ID="Label1" class="col-lg-4" runat="server" Text="">
+                        
+                    </asp:Label>
+                    <asp:Label ID="Label2" class="col-lg-4" runat="server" Text="">
+                        
+                    </asp:Label>
+                    
+                    <div class="col-lg-2">
+                        <div class="button-wrapper">
+                            <a class="btn-solid-reg page-scroll1" id="add-attr">SELECT ALL</a>
+                        </div>
+
+                        <div class="button-wrapper">
+                            <a class="btn-solid-reg page-scroll1"  runat="server" onserverclick="Button1_Click">CHECK OUT</a>
+                           
+                            
+                        </div>
+
+                    </div>
+                    <!-- end of col -->
+                </div>
+                <!-- end of row -->
+            </div>
+            <!-- end of container -->
+        </div>
+        <!-- end of header-content -->
+    </header>
+    <!-- end of header -->
     <!-- end of header -->
 
     <!-- Footer -->
@@ -229,4 +219,12 @@
     <script src="js/scripts.js"></script> <!-- Custom scripts -->
     </form>
 </body>
+    <script>
+    $(document).ready(function() {
+        $("#add-attr").click(function() {
+            $('input[type="checkbox"]').attr("checked", "checked");
+        });
+    });
+</script>
+    
 </html>

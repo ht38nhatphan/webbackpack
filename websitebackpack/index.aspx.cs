@@ -29,18 +29,19 @@ namespace websitebackpack
             //neu co du lieu them
             if (a != "")
             {
+                //if is admin then show 
                 if (Session["Email_USER"] != null)
                 {
-
+                    Response.Write("<script>confirm('This function is only for customers!')</script>");
                 }
                 //chưa đăng nhập 
-                if (Session["Email"] == null)
+                else if (Session["Email"] == null)
                 {
                     Session["IDindex"] = null;
                     Response.Redirect("~/login.aspx");
 
                 }
-                if (Session["Email"] != null && a!="")
+                else if (Session["Email"] != null && a!="")
                 {
                     //cheak dơn hàng nếu có thêm mới không thì update sản phẩm
                     addorder();
@@ -200,7 +201,12 @@ namespace websitebackpack
                 string image = tb.Rows[i]["Image"].ToString();
                 //get data
                 string id = tb.Rows[i]["ProductID"].ToString();
-                show.InnerHtml += string.Format("<div class='card'> <div class='label'> <p class='best-value'>Best Sellers</p></div><div class='card-body'><a class='product-image'  href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = '{0}' alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'><span class='currency'>$</span><span class='value'>{2}</span> </div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='index.aspx?id={3}' onclick ='call_click' id={3}>ADD TO CART</a></div></div></div>", image, name, price,id);
+                //check admin 
+                string c = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null){
+                    c = "edit-product.aspx?idbuy=";
+                }
+                show.InnerHtml += string.Format("<div class='card'> <div class='label'> <p class='best-value'>Best Sellers</p></div><div class='card-body'><a class='product-image'  href='{4}{3}'  onclick='showdetail(this.id)'><img src = '{0}' alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'><span class='currency'>$</span><span class='value'>{2}</span> </div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='index.aspx?id={3}' onclick ='call_click' id={3}>ADD TO CART</a></div></div></div>", image, name, price,id,c);
 
             }
             

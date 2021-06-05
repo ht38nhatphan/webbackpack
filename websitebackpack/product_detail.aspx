@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="product_detail.aspx.cs" Inherits="websitebackpack.product_detail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="product_detail.aspx.cs" Inherits="websitebackpack.product_detail" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="shop-admin.aspx.cs" Inherits="websitebackpack.shop_admin" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="shop-admin.aspx.cs" Inherits="websitebackpack.shop_admin" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -60,7 +60,7 @@
                     </a>
                 </span>
                 <span class="fa-stack">
-                    <a href="user.aspx">
+                    <a href="user-admin.aspx">
                         <i class="fas  fa-circle fa-stack-2x user"></i>
                         <i class="far fa-user fa-stack-1x"></i>
                     </a>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs" Inherits="websitebackpack.index" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="index.aspx.cs"  Inherits="websitebackpack.index" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 <script type="text/javascript">
@@ -12,6 +12,7 @@
     
     
 </script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8">
@@ -65,7 +66,7 @@
             </ul>
             <span class="nav-item social-icons">
                 <span class="fa-stack">
-                    <a runat="server" onserverclick ="shopclick">
+                    <a runat="server" onserverclick ="shopclick" >
                         <i class="fas fa-circle fa-stack-2x shopping"></i>
                         <i class="fas fa-shopping-cart fa-stack-1x"></i>
                     </a>
@@ -242,26 +243,23 @@
                     <!-- Contact Form -->
                     <form id="contactForm" data-toggle="validator" data-focus="false" >
                         <div class="form-group">
-                            <input type="text" class="form-control-input" id="cname" required runat="server">
+                            <input type="text" class="form-control-input" id="cname"  runat="server">
                             <label class="label-control" for="cname">Name</label>
-                            <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control-input" id="cemail" onloadstart="test1" required runat="server">
+                            <input type="email" class="form-control-input" id="cemail" onloadstart="test1" runat="server">
                             <label class="label-control" for="cemail">Email</label>
-                            <div class="help-block with-errors"> </div>
                         </div>
                         <div class="form-group">
-                            <textarea class="form-control-textarea" id="cmessage" onchange="test2" required runat="server"></textarea>
+                            <textarea class="form-control-textarea" id="cmessage" onchange="test2" runat="server"></textarea>
                             <label class="label-control" for="cmessage">Your message</label>
-                            <div class="help-block with-errors">
+=
                                  </div>
                         </div>
                         <div class="form-group checkbox">
-                            <input type="checkbox" id="cterms" value="Agreed-to-Terms" onchange="test3" required runat="server">I have read and agree
+                            <input type="checkbox" id="cterms" value="Agreed-to-Terms" onchange="test3"  runat="server">I have read and agree
                             with Evolo's stated <a href="privacy-policy.html">Privacy Policy</a> and <a
                                 href="terms-conditions.html">Terms Conditions</a>
-                            <div class="help-block with-errors"></div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="form-control-submit-button" runat="server" onserverclick="Feedback_click">SUBMIT MESSAGE</button>

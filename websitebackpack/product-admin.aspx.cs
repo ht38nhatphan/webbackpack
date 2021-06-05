@@ -58,32 +58,26 @@ namespace websitebackpack
             if (a != "" && a != "ab" && c != "idcaregory")
             {
                 //chưa đăng nhập 
-                if (Session["Email"] == null)
+                if (Session["Email_USER"] == null)
                 {
                     Response.Redirect("~/login.aspx");
                 }
 
                 else
                 {
-                    //cheak dơn hàng nếu có thêm mới không thì update sản phẩm
-                    addorder();
-                    string b = DateTime.Now.ToString();
-                    b = b.Substring(0, b.IndexOf(" "));
-                    int id1 = getidorder();
+                    ////cheak dơn hàng nếu có thêm mới không thì update sản phẩm
+                    //addorder();
+                    //string b = DateTime.Now.ToString();
+                    //b = b.Substring(0, b.IndexOf(" "));
+                    //int id1 = getidorder();
                     int ca = Convert.ToInt32(a);
                     //giá trị mới thêm
-                    if (cheackpro() == false)
-                    {
-                        dataservices = new dataservices();
-                        string sql = string.Format("insert into OrderDetails(OrderID,ProductID,Quantity) values ({0},{1},{2})", id1, ca, 1);
-                        dataservices.runquery(sql);
-                        Response.Write("<script>alert('Successful Order')</script>");
-                    }
-                    //đã có dữ liei trong pro và đơn hàng
-                    else if (cheackpro() == true)
-                    {
-                        updatequatyti();
-                    }
+
+                    dataservices = new dataservices();
+                    string sql = string.Format("DELETE FROM Products where ProductID = {0}", ca);
+                    dataservices.runquery(sql);
+                    Response.Write("<script>confirm('Delete successfully!')</script>");
+                    Response.Redirect("~/product-admin.aspx");
 
                 }
             }
@@ -212,11 +206,17 @@ namespace websitebackpack
                 n = tb.Rows[i]["ProductName"].ToString();
                 price = tb.Rows[i]["Price"].ToString();
                 id = Convert.ToInt32(tb.Rows[i]["ProductID"].ToString());
-                s += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
-               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>ADD TO CART</a></div></div></div>", img, n, price, id);
+
+                string chk = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null)
+                {
+                    chk = "edit-product.aspx?idbuy=";
+                }
+                s += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='{4}{3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
+               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>DELETE</a></div></div></div>", img, n, price, id, chk);
             }
 
-            s += "<div class='button-wrapper'id='dummy'><a class='btn-solid-reg page-scroll' onclick='removeDummy()' id='show_add'  href='product.aspx?id=ab'>SEE MORE</a></div>";
+            s += "<div class='button-wrapper'id='dummy'><a class='btn-solid-reg page-scroll' onclick='removeDummy()' id='show_add'  href='product-admin.aspx?id=ab'>SEE MORE</a></div>";
             showall.Text += s;
 
         }
@@ -253,11 +253,17 @@ namespace websitebackpack
                 n = tb.Rows[i]["ProductName"].ToString();
                 price = tb.Rows[i]["Price"].ToString();
                 id = Convert.ToInt32(tb.Rows[i]["ProductID"].ToString());
-                s1 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = {0}  alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
-               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>ADD TO CART</a></div></div></div>", img, n, price, id);
+
+                string chk = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null)
+                {
+                    chk = "edit-product.aspx?idbuy=";
+                }
+                s1 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='{4}{3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
+               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>DELETE</a></div></div></div>", img, n, price, id, chk);
             }
 
-            s += "<div class='button-wrapper'id='dummy'><a class='btn-solid-reg page-scroll' onclick='removeDummy()' id='show_add'  href='product.aspx?id=ab'>SEE MORE</a></div>";
+            s += "<div class='button-wrapper'id='dummy'><a class='btn-solid-reg page-scroll' onclick='removeDummy()' id='show_add'  href='product-admin.aspx?id=ab'>SEE MORE</a></div>";
             showall.Text += s1;
         }
         ////show add
@@ -286,8 +292,14 @@ namespace websitebackpack
                 n = tb.Rows[i]["ProductName"].ToString();
                 price = tb.Rows[i]["Price"].ToString();
                 id = Convert.ToInt32(tb.Rows[i]["ProductID"].ToString());
-                s += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
-               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>ADD TO CART</a></div></div></div>", img, n, price, id);
+
+                string chk = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null)
+                {
+                    chk = "edit-product.aspx?idbuy=";
+                }
+                s += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='{4}{3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
+               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product-admin.aspx?id={3}' onclick='buy(this.id)'>DELETE</a></div></div></div>", img, n, price, id, chk);
             }
 
 
@@ -309,8 +321,14 @@ namespace websitebackpack
                 n = tb.Rows[i]["ProductName"].ToString();
                 price = tb.Rows[i]["Price"].ToString();
                 id = Convert.ToInt32(tb.Rows[i]["ProductID"].ToString());
-                s1 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
-                "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>ADD TO CART</a></div></div></div>", img, n, price, id);
+
+                string chk = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null)
+                {
+                    chk = "edit-product.aspx?idbuy=";
+                }
+                s1 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='{4}{3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
+               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product-admin.aspx?id={3}' onclick='buy(this.id)'>DELETE</a></div></div></div>", img, n, price, id, chk);
             }
 
 
@@ -336,8 +354,14 @@ namespace websitebackpack
                 n = tb.Rows[i]["ProductName"].ToString();
                 price = tb.Rows[i]["Price"].ToString();
                 id = Convert.ToInt32(tb.Rows[i]["ProductID"].ToString());
-                s2 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
-               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>ADD TO CART</a></div></div></div>", img, n, price, id);
+                //cheack admin
+                string chk = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null)
+                {
+                    chk = "edit-product.aspx?idbuy=";
+                }
+                s2 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='{4}{3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
+               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product-admin.aspx?id={3}' onclick='buy(this.id)'>DELETE</a></div></div></div>", img, n, price, id,chk);
             }
 
 
@@ -357,8 +381,13 @@ namespace websitebackpack
                 n = tb.Rows[i]["ProductName"].ToString();
                 price = tb.Rows[i]["Price"].ToString();
                 id = Convert.ToInt32(tb.Rows[i]["ProductID"].ToString());
-                s3 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = {0}  alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
-               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>ADD TO CART</a></div></div></div>", img, n, price, id);
+                string chk = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null)
+                {
+                    chk = "edit-product.aspx?idbuy=";
+                }
+                s3 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='{4}{3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
+               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product-admin.aspx?id={3}' onclick='buy(this.id)'>DELETE</a></div></div></div>", img, n, price, id, chk);
             }
 
 
@@ -377,8 +406,13 @@ namespace websitebackpack
                 n = tb.Rows[i]["ProductName"].ToString();
                 price = tb.Rows[i]["Price"].ToString();
                 id = Convert.ToInt32(tb.Rows[i]["ProductID"].ToString());
-                s4 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = {0}  alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
-               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>ADD TO CART</a></div></div></div>", img, n, price, id);
+                string chk = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null)
+                {
+                    chk = "edit-product.aspx?idbuy=";
+                }
+                s4 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='{4}{3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
+               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product-admin.aspx?id={3}' onclick='buy(this.id)'>DELETE</a></div></div></div>", img, n, price, id, chk);
             }
 
 
@@ -397,8 +431,14 @@ namespace websitebackpack
                 n = tb.Rows[i]["ProductName"].ToString();
                 price = tb.Rows[i]["Price"].ToString();
                 id = Convert.ToInt32(tb.Rows[i]["ProductID"].ToString());
-                s5 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = {0}  alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
-               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>ADD TO CART</a></div></div></div>", img, n, price, id);
+
+                string chk = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null)
+                {
+                    chk = "edit-product.aspx?idbuy=";
+                }
+                s5 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='{4}{3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
+               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product-admin.aspx?id={3}' onclick='buy(this.id)'>DELETE</a></div></div></div>", img, n, price, id, chk);
             }
 
 
@@ -418,8 +458,14 @@ namespace websitebackpack
                 n = tb.Rows[i]["ProductName"].ToString();
                 price = tb.Rows[i]["Price"].ToString();
                 id = Convert.ToInt32(tb.Rows[i]["ProductID"].ToString());
-                s6 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='product_detail.aspx?idbuy={3}'  onclick='showdetail(this.id)'><img src = {0}  alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
-               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product.aspx?id={3}' onclick='buy(this.id)'>ADD TO CART</a></div></div></div>", img, n, price, id);
+
+                string chk = "product_detail.aspx?idbuy=";
+                if (Session["Email_USER"] != null)
+                {
+                    chk = "edit-product.aspx?idbuy=";
+                }
+                s6 += string.Format("<div class='card'>  <div class='card-body'><a class='product-image' href='{4}{3}'  onclick='showdetail(this.id)'><img src = {0} alt='alternative'></a><div class='card-title'>{1}</div><hr class='cell-divide-hr'><div class='price'> <span class='currency'>$</span><span class='value'>{2}</span>" +
+               "</div><hr class='cell-divide-hr'><div class='button-wrapper'><a class='btn-solid-reg page-scroll' href='product-admin.aspx?id={3}' onclick='buy(this.id)'>DELETE</a></div></div></div>", img, n, price, id, chk);
             }
 
 

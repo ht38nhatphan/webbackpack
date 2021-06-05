@@ -1,28 +1,18 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="product.aspx.cs" Inherits="websitebackpack.product" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="services-admin.aspx.cs" Inherits="websitebackpack.services_admin" EnableEventValidation="false"%>
 
 <!DOCTYPE html>
 <script type="text/javascript">
-    function addcategory_click(clicked_id) {
-        var name = clicked_id;
-       <%-- '<%Session["cheak_category"] = "' + name + '"; %>';--%>
+    function edit_click(clicked_id) {
+
+
     }
-    function removeDummy() {
-        var elem = document.getElementById('dummy');
-        elem.parentNode.removeChild(elem);
-        var name = "tshdjasdhjasd";
-      <%--  '<%Session["showa"] = "' + name + '"; %>';--%>
-        return false;
-    }
-    function buy(clicked_id) {
-        var name = clicked_id;
-    }
-    function showdetail(clicked_id) {
-        var name = clicked_id;
+    function delete_click(clicked_id) {
+
     }
 </script>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <meta charset="utf-8">
+     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Website Title -->
@@ -35,6 +25,11 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
     <!-- Favicon  -->
     <link rel="icon" href="img/favicon.png">
 </head>
@@ -46,7 +41,7 @@
         <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Evolo</a> -->
 
         <!-- Image Logo -->
-        <a class="navbar-brand logo-image" href="index.aspx"><img src="img/logo.png" alt="alternative"></a>
+        <a class="navbar-brand logo-image" href="index.admin"><img src="img/logo.png" alt="alternative"></a>
 
 
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
@@ -58,7 +53,7 @@
                     <a class="nav-link1 page-scroll" href="index.aspx">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link1 page-scroll" href="product.aspx">Products</a>
+                    <a class="nav-link1 page-scroll" href="product-admin.aspx">Products</a>
                 </li>
 
                 <li class="nav-item">
@@ -72,7 +67,7 @@
             </ul>
             <span class="nav-item social-icons">
                 <span class="fa-stack">
-                    <a href="shop.aspx">
+                    <a href="shop-admin.aspx">
                         <i class="fas fa-circle fa-stack-2x shopping"></i>
                         <i class="fas fa-shopping-cart fa-stack-1x"></i>
                     </a>
@@ -88,45 +83,26 @@
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
 
+    <!-- Services -->
+    <div id="services" class="cards-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Services</h2>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row">
+                    <asp:Label ID="servicesadd" class="col-lg-12" runat="server" Text="">
+                        </asp:Label>
+            </div> <!-- end of row -->
 
-
-    <!-- Pricing -->
-    <div id="pricing" class="cards-2">
-        <div class="container1">
-            <h2 class="header-product">Best Sellers</h2>
-            <asp:DropDownList ID="DropDownList1" class="orderby" aria-label="Shop order" runat="server" AutoPostBack="true" OnSelectedIndexChanged="myListDropDown_Change" >
-                <asp:ListItem value="popularity" Text="Sort by Popularity"></asp:ListItem>
-                <asp:ListItem value="date" Text="Sort by Newest"></asp:ListItem>
-                 <asp:ListItem value="price" Text="Sort by Price: Low To High"></asp:ListItem>
-                 <asp:ListItem value="price-desc" Text="Sort by Price: High To Low"></asp:ListItem>
-                 <asp:ListItem value="title" Text="Sort Alphabetically"></asp:ListItem>
-            </asp:DropDownList>
-           
-
-            <div class="clear-flex"></div>
-            
-            <div class="wp-contentt">
-                <div class="card-left">
-                    <li class="bold" >PRODUCT LIST</li>
-                    <ul runat ="server" id ="add_category"></ul>
-                </div>
-                 <asp:Label class="content-product" ID="showall" runat="server" ></asp:Label>
-               
-               <%-- <div class="content-product" runat="server" id ="showall">
-                </div>--%>
-                
+            <div class="form-group">
+                <button type="submit" class="form-control-submit-button1" runat="server" onserverclick="add_click">ADD</button>
                 
             </div>
-
-                    
-                        
-                        
-
-
         </div> <!-- end of container -->
-    </div> <!-- end of cards-2 -->
-    <!-- end of pricing -->
-
+    </div> <!-- end of cards-1 -->
+    <!-- end of services -->
 
     <!-- Footer -->
     <div class="footer">
@@ -206,8 +182,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p class="p-small">Copyright © 2021 <a href="https://www.facebook.com/ht38nhatphan">Template by NhatTin</a> - All rights
-                        reserved</p>
+                    <p class="p-small">Copyright © 2021 <a href="https://www.facebook.com/ht38nhatphan">Template by
+                            NhatTin</a> - All rights reserved</p>
                 </div> <!-- end of col -->
             </div> <!-- enf of row -->
         </div> <!-- end of container -->

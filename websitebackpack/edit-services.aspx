@@ -1,25 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="product.aspx.cs" Inherits="websitebackpack.product" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="edit-services.aspx.cs" Inherits="websitebackpack.edit_services" EnableEventValidation="false"%>
 
 <!DOCTYPE html>
-<script type="text/javascript">
-    function addcategory_click(clicked_id) {
-        var name = clicked_id;
-       <%-- '<%Session["cheak_category"] = "' + name + '"; %>';--%>
-    }
-    function removeDummy() {
-        var elem = document.getElementById('dummy');
-        elem.parentNode.removeChild(elem);
-        var name = "tshdjasdhjasd";
-      <%--  '<%Session["showa"] = "' + name + '"; %>';--%>
-        return false;
-    }
-    function buy(clicked_id) {
-        var name = clicked_id;
-    }
-    function showdetail(clicked_id) {
-        var name = clicked_id;
-    }
-</script>
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta charset="utf-8">
@@ -35,12 +17,17 @@
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/fontawesome-all.css" rel="stylesheet">
 
+
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!-- Favicon  -->
     <link rel="icon" href="img/favicon.png">
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
     <form id="form1" runat="server">
-          <!-- Navigation -->
+        
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
         <!-- Text Logo - Use this if you don't have a graphic logo -->
         <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Evolo</a> -->
@@ -58,7 +45,7 @@
                     <a class="nav-link1 page-scroll" href="index.aspx">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link1 page-scroll" href="product.aspx">Products</a>
+                    <a class="nav-link1 page-scroll" href="product-admin.aspx">Products</a>
                 </li>
 
                 <li class="nav-item">
@@ -72,13 +59,13 @@
             </ul>
             <span class="nav-item social-icons">
                 <span class="fa-stack">
-                    <a href="shop.aspx">
+                    <a href="shop-admin.aspx">
                         <i class="fas fa-circle fa-stack-2x shopping"></i>
                         <i class="fas fa-shopping-cart fa-stack-1x"></i>
                     </a>
                 </span>
                 <span class="fa-stack">
-                    <a href="user.aspx">
+                    <a href="user-admin.aspx">
                         <i class="fas  fa-circle fa-stack-2x user"></i>
                         <i class="far fa-user fa-stack-1x"></i>
                     </a>
@@ -88,48 +75,80 @@
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
 
+    <div id="pricing" class="cards-3">
 
-
-    <!-- Pricing -->
-    <div id="pricing" class="cards-2">
-        <div class="container1">
-            <h2 class="header-product">Best Sellers</h2>
-            <asp:DropDownList ID="DropDownList1" class="orderby" aria-label="Shop order" runat="server" AutoPostBack="true" OnSelectedIndexChanged="myListDropDown_Change" >
-                <asp:ListItem value="popularity" Text="Sort by Popularity"></asp:ListItem>
-                <asp:ListItem value="date" Text="Sort by Newest"></asp:ListItem>
-                 <asp:ListItem value="price" Text="Sort by Price: Low To High"></asp:ListItem>
-                 <asp:ListItem value="price-desc" Text="Sort by Price: High To Low"></asp:ListItem>
-                 <asp:ListItem value="title" Text="Sort Alphabetically"></asp:ListItem>
-            </asp:DropDownList>
-           
-
-            <div class="clear-flex"></div>
-            
-            <div class="wp-contentt">
-                <div class="card-left">
-                    <li class="bold" >PRODUCT LIST</li>
-                    <ul runat ="server" id ="add_category"></ul>
+        <main class="container">
+            <div class="row">
+                <!-- Left Column Image -->
+                <div class="col-lg-6">
+                    <h2 class="header-product">Edit Service</h2>
+                    <span class="product-back">/</span>
+                    <span> <a class="product-back backk" href="services-admin.aspx">Manage Service</a></span>
+                    <asp:Image ID="vas" runat="server" class="img-edit-service"  />
                 </div>
-                 <asp:Label class="content-product" ID="showall" runat="server" ></asp:Label>
-               
-               <%-- <div class="content-product" runat="server" id ="showall">
-                </div>--%>
-                
-                
-            </div>
 
-                    
-                        
-                        
+                <!-- Right Column -->
+                <div class="col-md-6">
+
+                    <!-- Product Description -->
+                    <div class="product-description">
+                        <h1>Product</h1>
+                        <p>The perfect choice for those who want to use branded goods, soft materials, rainproof</p>
+                    </div>
 
 
-        </div> <!-- end of container -->
-    </div> <!-- end of cards-2 -->
-    <!-- end of pricing -->
+                    <div class="card2">
+                        <!-- Product Pricing -->
+                        <div class="card-body">
 
+                            <div class="product-price">
+
+                                <div class="button-wrapper">
+                                    <asp:Button class="btn-solid-reg page-scroll" ID="Button1" OnClick="edit_click" runat="server" Text="EDIT" />
+                                    
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Edit -->
+                <div class="col-sm-3">
+                </div>
+
+                <asp:Label class="col-sm-6" ID="Label1" runat="server" Text="" >
+                    <br> <br>
+                     <asp:FileUpload id="imgload"                 
+           runat="server"  onchange="ShowButton();">
+       </asp:FileUpload>
+                        <div class="form-group">
+                            <label class="" for="cname">Name</label>
+                            <input type="text" runat="server" class="form-control-input1" id="cname" >
+                        </div>
+                        <div class="form-group">
+                            <label class="" for="Description">Description</label>
+                            <textarea class="form-control-input1" runat="server"  name="" id="Description" cols="20"
+                                rows="5"></textarea>
+                        </div>
+
+                        <div class="button-wrapper">
+                             <asp:Button class="btn-solid-reg page-scroll" ID="Button2" runat="server" OnClick="save_click" Text="Save" />
+                        </div>
+                    </div>
+
+                </asp:Label>
+                <div class="col-sm-3">
+                </div>
+                <!-- End Edit -->
+        </main>
+
+    </div>
+
+    </div>
 
     <!-- Footer -->
-    <div class="footer">
+    <div class="footer1">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -206,8 +225,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <p class="p-small">Copyright © 2021 <a href="https://www.facebook.com/ht38nhatphan">Template by NhatTin</a> - All rights
-                        reserved</p>
+                    <p class="p-small">Copyright © 2021 <a href="https://www.facebook.com/ht38nhatphan">Template by
+                            NhatTin</a> - All rights reserved</p>
                 </div> <!-- end of col -->
             </div> <!-- enf of row -->
         </div> <!-- end of container -->
@@ -226,4 +245,22 @@
     <script src="js/scripts.js"></script> <!-- Custom scripts -->
     </form>
 </body>
+     <script>
+
+    $('document').ready(function() {
+        $("#imgload").change(function() {
+            if (this.files && this.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var  a = e.target.result;
+                    $('#vas').attr('src', a);
+                    
+                }
+                reader.readAsDataURL(this.files[0]);
+                
+            }
+        });
+    });
+    
+</script>
 </html>

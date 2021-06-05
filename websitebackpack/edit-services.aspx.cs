@@ -9,15 +9,14 @@ using System.Web.UI.WebControls;
 
 namespace websitebackpack
 {
-    public partial class edit_product : System.Web.UI.Page
+    public partial class edit_services : System.Web.UI.Page
     {
         private dataservices dataservices;
-        string im, name, price, note;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
             {
-
+                
                 //lay id khi click lấy id
                 string a = Page.ClientQueryString;
                 //neu khoong co du lieu khong cat
@@ -27,55 +26,23 @@ namespace websitebackpack
                 }
                 int c = Convert.ToInt32(a);
                 dataservices = new dataservices();
-                string sql = string.Format("select * from Products where ProductID = {0}", c);
+                string sql = string.Format("select * from Services where ServicesID = {0}", c);
                 DataTable tb = dataservices.getData(sql);
                 //get data
-                
-                name = tb.Rows[0]["ProductName"].ToString();
-                Session["beginname"] = name;
-                price = tb.Rows[0]["Price"].ToString();
-                im = tb.Rows[0]["Image"].ToString();
-                note = tb.Rows[0]["Description"].ToString();
+
+                string name = tb.Rows[0]["NameServices"].ToString();
+                Session["namesericses"] = name;
+                string im = tb.Rows[0]["Img"].ToString();
+                string note = tb.Rows[0]["Note"].ToString();
                 //set data on text
 
                 cname.Value = name;
-                number.Value = price;
                 Description.Value = note;
                 vas.ImageUrl = im;
 
             }
         }
-
-        //cheack
-        
-        bool c = false;
-        private void cheak(string img1, string name1, string number1, string note1)
-        {
-            dataservices = new dataservices();
-            string sql = string.Format("select * from Products where ProductName = N'{0}'", name1);
-            DataTable tb = dataservices.getData(sql);
-            if (img1 == "")
-            {
-                Response.Write("<script>confirm('Img cannot be empty!')</script>");
-            }
-            else if (name1 == "")
-            {
-                Response.Write("<script>confirm('Name cannot be empty!')</script>");
-            }
-            else if (number1 == "")
-            {
-                Response.Write("<script>confirm('Price cannot be empty!')</script>");
-            }
-            else if (tb.Rows.Count > 0&& Session["beginname"].ToString() != name1)
-            {
-                Response.Write("<script>confirm('This name already exists!')</script>");
-            }
-            //if satisfied with add
-            else
-            {
-                c = true;
-            }
-        }
+        //get img up 
         private string getimg()
         {
             string folderPath = Server.MapPath("~/Images/");
@@ -97,9 +64,39 @@ namespace websitebackpack
             }
             return url;
         }
-        protected void clickshow(object sender, EventArgs e)
+        //cheack 
+        bool c = false;
+        private void cheak(string img, string name, string note)
         {
-            if(Label1.Visible == true)
+            //declare dataservics
+            dataservices dataservices = new dataservices();
+            //query sql
+            string sql = string.Format("select * from Services where NameServices = N'{0}'", name);
+            DataTable tb = dataservices.getData(sql);
+            //if img empty notification
+            if (img == "")
+            {
+                Response.Write("<script>confirm('Img cannot be empty!')</script>");
+            }
+            //if img name notification
+            else if (name == "")
+            {
+                Response.Write("<script>confirm('Name cannot be empty!')</script>");
+            }
+            //if img name duplicate notification
+            else if (tb.Rows.Count > 0 && Session["namesericses"].ToString() != name)
+            {
+                Response.Write("<script>confirm('This name already exists!')</script>");
+            }
+            //if satisfied then add
+            else
+            {
+                c = true;
+            }
+        }
+        protected void edit_click(object sender, EventArgs e)
+        {
+            if (Label1.Visible == true)
             {
                 Label1.Visible = false;
 
@@ -108,8 +105,6 @@ namespace websitebackpack
             {
                 Response.Redirect(HttpContext.Current.Request.Url.AbsoluteUri);
             }
-            
-
         }
         protected void save_click(object sender, EventArgs e)
         {
@@ -122,12 +117,11 @@ namespace websitebackpack
             int ck = Convert.ToInt32(a);
             string img1 = getimg();
             string name1 = cname.Value;
-            string numbera1 = number.Value;
             string note1 = Description.Value;
 
             dataservices = new dataservices();
-            string sql = string.Format("update Products set ProductName = N'{0}',Price={1},Image=N'{2}',Description=N'{3}' where ProductID = {4}", name1, numbera1, img1, note1,ck);
-            cheak(img1, name1, numbera1, note1);
+            string sql = string.Format("update Services set NameServices = N'{0}',Img=N'{1}',Note=N'{2}' where ServicesID = {3}", name1, img1, note1, ck);
+            cheak(img1, name1, note1);
             if (c == true)
             {
                 dataservices.runquery(sql);

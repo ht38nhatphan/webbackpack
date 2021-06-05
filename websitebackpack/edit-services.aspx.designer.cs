@@ -10,7 +10,7 @@
 namespace websitebackpack {
     
     
-    public partial class edit_product {
+    public partial class edit_services {
         
         /// <summary>
         /// form1 control.
@@ -29,6 +29,15 @@ namespace websitebackpack {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image vas;
+        
+        /// <summary>
+        /// Button1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
         /// Label1 control.
@@ -58,15 +67,6 @@ namespace websitebackpack {
         protected global::System.Web.UI.HtmlControls.HtmlInputText cname;
         
         /// <summary>
-        /// number control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText number;
-        
-        /// <summary>
         /// Description control.
         /// </summary>
         /// <remarks>
@@ -76,12 +76,12 @@ namespace websitebackpack {
         protected global::System.Web.UI.HtmlControls.HtmlTextArea Description;
         
         /// <summary>
-        /// Button1 control.
+        /// Button2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button Button2;
     }
 }

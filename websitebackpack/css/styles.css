@@ -2043,17 +2043,14 @@ a:hover.back-to-top {
 }
 
 .header1 .card {
-    margin-left: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 80px;
 }
 
 .text-container1 {
-    width: 500px;
-    margin-left: 80px;
+    width: 250px;
     flex-direction: row;
     display: flex;
 }
-
 a.btn-solid-reg.page-scroll1 {
     margin-top: 80px;
 }

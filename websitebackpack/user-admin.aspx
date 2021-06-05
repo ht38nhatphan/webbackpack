@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="user-admin.aspx.cs" Inherits="websitebackpack.user_admin" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="user-admin.aspx.cs" Inherits="websitebackpack.user_admin" EnableEventValidation="false" %>
 
 <!DOCTYPE html>
 
@@ -82,6 +82,8 @@
                             <a href="shop-admin.aspx"><h5>Orders</h5></a>
                             <hr class="cell-divide-hr">
                             <a href="product-admin.aspx"><h5>Manage Product</h5></a>
+                            <hr class="cell-divide-hr">
+                            <a href="services-admin.aspx"><h5>Manage Services</h5></a>
                             <hr class="cell-divide-hr">
                             <a href="login.aspx" runat="server" onserverclick="logout_click"><h5>Log Out</h5></a>
                             <hr class="cell-divide-hr">

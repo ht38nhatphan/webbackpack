@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Net;
-using System.Text.RegularExpressions;
-using System.IO;
-using System.Data;
 
 namespace websitebackpack
 {
-    public partial class manage_product : System.Web.UI.Page
+    public partial class add_services : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (!Page.IsPostBack)
             {
+                //if page not login admin then login admin
                 if (Session["Email_USER"] == null)
                 {
                     Response.Redirect("~/index.aspx");
                 }
             }
-            
         }
+        //get img up 
         private string getimg()
         {
             string folderPath = Server.MapPath("~/Images/");
@@ -36,40 +35,41 @@ namespace websitebackpack
             }
             // Before attempting to save the file, verify
             // that the FileUpload control contains a file.
-            string url="";
+            string url = "";
             if (imgload.HasFile)
             {
                 string savePath = folderPath + Path.GetFileName(imgload.FileName);
                 imgload.SaveAs(savePath);
                 url = "/Images/" + Path.GetFileName(Path.GetFileName(imgload.FileName));
-                
+
             }
             return url;
         }
         //cheack 
         bool c = false;
-        private void cheak(string img, string name, string number, string note)
+        private void cheak(string img, string name, string note)
         {
+            //declare dataservics
             dataservices dataservices = new dataservices();
-            string sql = string.Format("select * from Products where ProductName = N'{0}'", name);
-            DataTable tb =  dataservices.getData(sql);
+            //query sql
+            string sql = string.Format("select * from Services where NameServices = N'{0}'", name);
+            DataTable tb = dataservices.getData(sql);
+            //if img empty notification
             if (img == "")
             {
                 Response.Write("<script>confirm('Img cannot be empty!')</script>");
             }
+            //if img name notification
             else if (name == "")
             {
                 Response.Write("<script>confirm('Name cannot be empty!')</script>");
             }
-            else if (number == "")
-            {
-                Response.Write("<script>confirm('Price cannot be empty!')</script>");
-            }
+            //if img name duplicate notification
             else if (tb.Rows.Count > 0)
             {
                 Response.Write("<script>confirm('This name already exists!')</script>");
             }
-            //if satisfied with add
+            //if satisfied then add
             else
             {
                 c = true;
@@ -79,21 +79,21 @@ namespace websitebackpack
         {
             string img = getimg();
             string name = cname.Value;
-            string numbera = number.Value;
             string note = Description.Value;
-
+            //declare dataservics
             dataservices dataservices = new dataservices();
-            string sql = string.Format("insert into Products(CategoryID,ProductName,Price,Image,Description) Values({0},N'{1}',{2},N'{3}',N'{4}')", 2,name,numbera,img,note);
-            cheak(img, name, numbera, note);
+            //query sql insert
+            string sql = string.Format("insert into Services(Img,NameServices,Note) Values(N'{0}',N'{1}',N'{2}')", img,name, note);
+            //cheak 
+            cheak(img, name, note);
+            //if c == true insert db
             if (c == true)
             {
                 dataservices.runquery(sql);
                 Response.Write("<script>confirm('Add data successfully!')</script>");
             }
-            
+
 
         }
-
     }
-  
 }

@@ -40,7 +40,7 @@
                     <a class="nav-link1 page-scroll" href="index.aspx">Services</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link1 page-scroll" href="product.aspx">Products</a>
+                    <a class="nav-link1 page-scroll" href="product-admin.aspx">Products</a>
                 </li>
 
                 <li class="nav-item">
@@ -54,13 +54,13 @@
             </ul>
             <span class="nav-item social-icons">
                 <span class="fa-stack">
-                    <a href="shop.aspx">
+                    <a href="shop-admin.aspx">
                         <i class="fas fa-circle fa-stack-2x shopping"></i>
                         <i class="fas fa-shopping-cart fa-stack-1x"></i>
                     </a>
                 </span>
                 <span class="fa-stack">
-                    <a href="user.aspx">
+                    <a href="user-admin.aspx">
                         <i class="fas  fa-circle fa-stack-2x user"></i>
                         <i class="far fa-user fa-stack-1x"></i>
                     </a>
@@ -78,7 +78,7 @@
             
             <h2 class="header-product">Manage Product</h2>
             <section class="orderby1">
-                <a class="btn-solid-reg1 page-scroll" href="manage-product.html">Add</a>
+                <a class="btn-solid-reg1 page-scroll" href="manage-product.aspx">Add</a>
             </section>
 
             <asp:DropDownList ID="DropDownList1" class="orderby" aria-label="Shop order" runat="server" AutoPostBack="true" OnSelectedIndexChanged="myListDropDown_Change" >
