@@ -253,16 +253,15 @@
                         <div class="form-group">
                             <textarea class="form-control-textarea" id="cmessage" onchange="test2" runat="server"></textarea>
                             <label class="label-control" for="cmessage">Your message</label>
-=
-                                 </div>
-                        </div>
+                         </div>
+                        
                         <div class="form-group checkbox">
                             <input type="checkbox" id="cterms" value="Agreed-to-Terms" onchange="test3"  runat="server">I have read and agree
                             with Evolo's stated <a href="privacy-policy.html">Privacy Policy</a> and <a
                                 href="terms-conditions.html">Terms Conditions</a>
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="form-control-submit-button" runat="server" onserverclick="Feedback_click">SUBMIT MESSAGE</button>
+                            <button type="submit" class="form-control-submit-button" runat="server" onserverclick="Feedback_click" >SUBMIT MESSAGE</button>
                         </div>
                         <div class="form-message">
                             <div id="cmsgSubmit" class="h3 text-center hidden"></div>

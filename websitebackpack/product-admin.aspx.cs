@@ -30,7 +30,11 @@ namespace websitebackpack
             }
             if (!Page.IsPostBack)
             {
-
+                //chưa đăng nhập 
+                if (Session["Email_USER"] == null)
+                {
+                    Response.Redirect("~/login.aspx");
+                }
                 addcategory();
                 if (a == "")
                 {
@@ -235,7 +239,7 @@ namespace websitebackpack
                 string id = tb.Rows[i]["CategoryID"].ToString();
                 //save id categry
                 Session["idcategory"] = id;
-                a += string.Format("<hr class='cell-divide-hr'><li><a href = 'product.aspx?idcaregory={0}' id='{0}' Onclick = cheak_category(this.id) > {1}</a></li>", id, n);
+                a += string.Format("<hr class='cell-divide-hr'><li><a href = 'product-admin.aspx?idcaregory={0}' id='{0}' Onclick = cheak_category(this.id) > {1}</a></li>", id, n);
 
             }
             add_category.InnerHtml = a;

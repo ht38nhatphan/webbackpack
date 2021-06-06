@@ -102,23 +102,23 @@
                             <h2>Sign Up</h2>
                                 <div class="form-group">
 
-                                    <input runat ="server" type="text" class="form-control-input" id="cname" required>
+                                    <input runat ="server" type="text" class="form-control-input" id="cname" >
                                     <label class="label-control" for="cname">Name</label>
-                                    <div class="help-block with-errors"></div>
+                                   
                                 </div>
                                 <div class="form-group">
-                                    <input runat ="server" type="email" class="form-control-input" id="cemail" required>
+                                    <input runat ="server" type="email" class="form-control-input" id="cemail" >
                                     <label class="label-control" for="cemail">Email</label>
-                                    <div class="help-block with-errors"></div>
+                                    
                                 </div>
                                 <div class="form-group">
-                                    <input runat ="server" type="password" class="form-control-input" id="cpass" required>
+                                    <input runat ="server" type="password" class="form-control-input" id="cpass" >
                                     <label class="label-control" for="cpass">Password</label>
-                                    <div class="help-block with-errors"></div>
+                                    
                                 </div>
                                 <div class="form-group checkbox">
-                                    <input runat ="server" type="checkbox" id="cterms" value="Agreed-to-Terms" required>I have read and agree with Evolo's stated <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms Conditions</a>
-                                    <div class="help-block with-errors"></div>
+                                    <input runat ="server" type="checkbox" id="cterms" value="Agreed-to-Terms" >I have read and agree with Evolo's stated <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms Conditions</a>
+                                   
                                 </div>
                                 <div class="form-group">
                                     <button runat ="server" onserverclick="sumit2_click" type="submit" class="form-control-submit-button">SIGN UP</button>

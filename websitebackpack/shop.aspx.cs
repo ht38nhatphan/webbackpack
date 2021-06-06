@@ -106,10 +106,12 @@ namespace websitebackpack
                 dataservices.runquery(sql1);
                 string sql2 = string.Format("Delete from OrderDetails where DetailID ={0}", i);
                 dataservices.runquery(sql2);
-                Response.Write(string.Format("<script>confirm('The total amount you have to pay is: {0}$')</script>",sum));
-                //Response.Redirect("~/shop.aspx");
+               
+                
 
             }
+            Response.Write(string.Format("<script>confirm('The total amount you have to pay is: {0}$')</script>", sum));
+            //Response.Redirect("~/shop.aspx");
         }
         //set data in hashset
         private HashSet<int> splitstring(string s)
