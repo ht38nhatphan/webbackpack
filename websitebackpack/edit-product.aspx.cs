@@ -42,6 +42,8 @@ namespace websitebackpack
                 number.Value = price;
                 Description.Value = note;
                 vas.ImageUrl = im;
+                Label2.Text = string.Format("<h1>{0}</h1><p>{1}</p>", tb.Rows[0]["ProductName"], tb.Rows[0]["Description"].ToString());
+                Label3.Text = string.Format("<span class='value'>{0}</span>", tb.Rows[0]["Price"].ToString());
 
             }
         }
@@ -113,19 +115,29 @@ namespace websitebackpack
         }
         protected void save_click(object sender, EventArgs e)
         {
+            dataservices = new dataservices();
             string a = Page.ClientQueryString;
             //neu khoong co du lieu khong cat
             if (a != "")
             {
                 a = a.Substring(a.IndexOf("=") + 1);
             }
+            
             int ck = Convert.ToInt32(a);
-            string img1 = getimg();
+            
+            string sql1 = string.Format("select * from Products where ProductID = {0}", ck);
+            DataTable tb = dataservices.getData(sql1);
+            string img1 = tb.Rows[0]["Image"].ToString();
+            if (img1 == "")
+            {
+                img1 = getimg();
+            }
+
             string name1 = cname.Value;
             string numbera1 = number.Value;
             string note1 = Description.Value;
 
-            dataservices = new dataservices();
+           
             string sql = string.Format("update Products set ProductName = N'{0}',Price={1},Image=N'{2}',Description=N'{3}' where ProductID = {4}", name1, numbera1, img1, note1,ck);
             cheak(img1, name1, numbera1, note1);
             if (c == true)

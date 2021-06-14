@@ -92,8 +92,8 @@
 
                     <!-- Product Description -->
                     <div class="product-description">
-                        <h1>Product</h1>
-                        <p>The perfect choice for those who want to use branded goods, soft materials, rainproof</p>
+                        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+                      
                     </div>
 
 

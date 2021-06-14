@@ -39,7 +39,7 @@ namespace websitebackpack
                 cname.Value = name;
                 Description.Value = note;
                 vas.ImageUrl = im;
-
+                Label2.Text = string.Format("<h1>{0}</h1><p>{1}</p>", name, note);
             }
         }
         //get img up 
@@ -115,7 +115,13 @@ namespace websitebackpack
                 a = a.Substring(a.IndexOf("=") + 1);
             }
             int ck = Convert.ToInt32(a);
-            string img1 = getimg();
+            string sql1 = string.Format("select * from Services where ServicesID = {0}", ck);
+            DataTable tb = dataservices.getData(sql1);
+            string img1 = tb.Rows[0]["Image"].ToString();
+            if (img1 == "")
+            {
+                img1 = getimg();
+            }
             string name1 = cname.Value;
             string note1 = Description.Value;
 

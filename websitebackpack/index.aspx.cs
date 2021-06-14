@@ -55,7 +55,8 @@ namespace websitebackpack
                         dataservices = new dataservices();
                         string sql = string.Format("insert into OrderDetails(OrderID,ProductID,Quantity) values ({0},{1},{2})", id, ca, 1);
                         dataservices.runquery(sql);
-                        
+                        Response.Redirect("~/index.aspx");
+
                     }
                     //đã có dữ liei trong pro và đơn hàng
                     else if (cheackpro() == true)

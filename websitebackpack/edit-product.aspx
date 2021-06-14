@@ -93,8 +93,7 @@
 
                     <!-- Product Description -->
                     <div class="product-description">
-                        <h1>Product</h1>
-                        <p>The perfect choice for those who want to use branded goods, soft materials, rainproof</p>
+                         <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
                     </div>
 
                     <!-- Product Configuration -->
@@ -115,7 +114,8 @@
                         <div class="card-body">
 
                             <div class="price">
-                                <span class="currency">$</span><span class="value">199</span>
+                                <span class="currency">$</span>
+                                 <asp:Label ID="Label3" runat="server" Text=""></asp:Label>
                             </div>
 
                             <div class="product-price">

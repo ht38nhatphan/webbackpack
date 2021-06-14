@@ -119,7 +119,7 @@ namespace websitebackpack
                 Label1.Text = "You have not agreed to the conditions";
                 Label1.ForeColor = System.Drawing.Color.Red;
             }
-            if (cheackrepeat(n) && n != "" && em != "" && p != "" && cterms.Checked == true)
+            else if (cheackrepeat(n) && n != "" && em != "" && p != "" && cterms.Checked == true)
             {
                 p = md5.GetMD5(p);
                 dataservices dataservices = new dataservices();
